@@ -6,6 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
+
+// setup user authentication
+var passport = require('passport');
+require('./models/Users');
+require('./config/passport');
+
 require('./models/Posts');
 require('./models/Comments');
 mongoose.connect('mongodb://localhost/news');
@@ -15,6 +21,8 @@ var users = require('./routes/users');
 
 var app = express();
 
+
+app.use(passport.initialize());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
